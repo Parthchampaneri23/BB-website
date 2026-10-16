@@ -1,0 +1,58 @@
+[
+  {
+    "symbol": "SENSEX",
+    "name": "BSE SENSEX",
+    "price": "81,892.40",
+    "change": "+345.10",
+    "percent": "+0.42%",
+    "isPositive": true
+  },
+  {
+    "symbol": "NIFTY 50",
+    "name": "NIFTY 50",
+    "price": "25,038.75",
+    "change": "+98.30",
+    "percent": "+0.39%",
+    "isPositive": true
+  },
+  {
+    "symbol": "NIFTY BANK",
+    "name": "BANK NIFTY",
+    "price": "51,840.20",
+    "change": "+210.50",
+    "percent": "+0.41%",
+    "isPositive": true
+  },
+  {
+    "symbol": "BSE MIDCAP",
+    "name": "BSE MIDCAP",
+    "price": "47,120.60",
+    "change": "-65.40",
+    "percent": "-0.14%",
+    "isPositive": false
+  },
+  {
+    "symbol": "GOLD (10g)",
+    "name": "MCX GOLD",
+    "price": "\u20b976,450",
+    "change": "+180.00",
+    "percent": "+0.24%",
+    "isPositive": true
+  },
+  {
+    "symbol": "USD/INR",
+    "name": "USD to INR",
+    "price": "84.07",
+    "change": "-0.04",
+    "percent": "-0.05%",
+    "isPositive": false
+  },
+  {
+    "symbol": "BRENT CRUDE",
+    "name": "Brent Oil ($/bbl)",
+    "price": "74.29",
+    "change": "-0.82",
+    "percent": "-1.09%",
+    "isPositive": false
+  }
+]

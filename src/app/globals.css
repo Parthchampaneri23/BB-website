@@ -1,26 +1,65 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bb-blue: #0069f7;
+  --bb-blue-hover: #0053c7;
+  --bb-navy: #01142e;
+  --bb-navy-light: #07244d;
+  --bb-ice: #eaf2ff;
+  --bb-border: #dbe7f5;
+  --bb-bg-gray: #f5f8fc;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f8fc;
+  color: #171717;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* Custom Scrollbar for top tickers & category lists */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Blue underline header style for BusinessBulletin */
+.bs-heading-red,
+.bb-heading-blue {
+  position: relative;
+  display: inline-block;
+}
+.bs-heading-red::after,
+.bb-heading-blue::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0069f7;
+}
+
+/* Marquee / ticker animation */
+@keyframes ticker {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 35s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
 }
