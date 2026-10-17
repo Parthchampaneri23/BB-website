@@ -169,9 +169,9 @@ export default function Header() {
           <Link href="/" className="inline-flex items-center justify-center group py-0.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/bb-logo.png"
+              src="/updatedlogo.svg"
               alt="BusinessBulletin Logo"
-              className="h-10 sm:h-12 md:h-14 w-auto object-contain drop-shadow-xs group-hover:opacity-95 transition"
+              className="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-xs group-hover:opacity-95 transition"
             />
           </Link>
         </div>
@@ -286,7 +286,7 @@ export default function Header() {
             <div className="max-w-[1240px] mx-auto px-6 py-3 flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/bb-logo.png" alt="BusinessBulletin" className="h-7 w-auto object-contain" />
+                <img src="/updatedlogo.svg" alt="BusinessBulletin" className="h-6 w-auto object-contain" />
                 <span className="text-gray-400">|</span>
                 <span className="text-[#01142e] font-semibold">Categories & Sections</span>
               </div>

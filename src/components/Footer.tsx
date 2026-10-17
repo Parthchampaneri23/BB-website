@@ -23,9 +23,9 @@ export default function Footer() {
             <Link href="/" className="inline-block">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/bb-logo.png"
+                src="/updatedlogo.svg"
                 alt="BusinessBulletin Logo"
-                className="h-10 w-auto object-contain brightness-0 invert"
+                className="h-9 w-auto object-contain brightness-0 invert"
               />
             </Link>
             <p className="text-gray-300 text-xs leading-relaxed max-w-lg">
