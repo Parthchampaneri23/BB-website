@@ -95,26 +95,6 @@ export default async function CategoryPage({ params }: PageProps) {
               ))}
             </div>
           </div>
-
-          <div className="bg-[#eaf2ff]/60 border border-[#c6ddfc] p-4 rounded-xs text-center font-sans">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#0069f7] block mb-1">
-              Newsletter
-            </span>
-            <h4 className="font-serif font-bold text-sm text-[#01142e] mb-2">
-              Stay ahead with Morning Markets
-            </h4>
-            <p className="text-xs text-gray-600 mb-3">
-              Get key business insights and daily market previews delivered straight to your inbox from BusinessBulletin.
-            </p>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full text-xs p-2 border border-[#c6ddfc] rounded mb-2 bg-white focus:outline-none focus:border-[#0069f7]"
-            />
-            <button className="w-full bg-[#0069f7] hover:bg-[#0053c7] text-white text-xs font-bold py-2 rounded uppercase tracking-wider transition cursor-pointer shadow-xs">
-              Subscribe Free
-            </button>
-          </div>
         </div>
       </div>
     </div>
