@@ -1,5 +1,4 @@
-import React from 'react';
-import { articles } from '@/lib/newsService';
+import { getAllArticles } from '@/lib/newsService';
 import ArticleCard from '@/components/ArticleCard';
 import SectionHeader from '@/components/SectionHeader';
 import Link from 'next/link';
@@ -7,7 +6,10 @@ import { TrendingUp, Flame, Award, Wallet, Building2, TrendingDown, Landmark } f
 
 import TopStoriesSlider from '@/components/TopStoriesSlider';
 
-export default function HomePage() {
+export const dynamic = 'force-dynamic';
+
+export default async function HomePage() {
+  const articles = await getAllArticles();
   const homeStories = articles.filter(a => a.category === 'home' || a.category === 'latest');
   const marketStories = articles.filter(a => a.category === 'markets');
   const economyStories = articles.filter(a => a.category === 'economy');

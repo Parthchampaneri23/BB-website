@@ -8,12 +8,19 @@ export interface Article {
   fullText: string;
   category: string;
   categoryLabel: string;
+  subCategory?: string;
+  subCategoryLabel?: string;
   url: string;
   imageUrl: string;
   originalImageUrl?: string;
   author: string;
   pubDate: string;
   readTime: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  canonicalUrl?: string;
+  schemaMarkup?: string;
 }
 
 export interface MarketItem {
@@ -25,7 +32,8 @@ export interface MarketItem {
   isPositive: boolean;
 }
 
-export const articles: Article[] = rawArticles as Article[];
+// Exactly 8 articles per section from articles.json
+export const staticArticles: Article[] = rawArticles as Article[];
 export const markets: MarketItem[] = rawMarkets as MarketItem[];
 
 export const CATEGORIES = [
@@ -40,17 +48,71 @@ export const CATEGORIES = [
   { id: 'opinion', name: 'Opinion', path: '/category/opinion' },
 ];
 
-export function getArticlesByCategory(category: string): Article[] {
-  if (category === 'all' || category === 'home') {
-    return articles;
+function transformDocToArticle(doc: any): Article {
+  return {
+    id: doc.slug || doc.id,
+    title: doc.title,
+    summary: doc.summary,
+    fullText: doc.fullText || doc.summary,
+    category: doc.category,
+    categoryLabel: doc.categoryLabel || doc.category,
+    subCategory: doc.subCategory || '',
+    subCategoryLabel: doc.subCategoryLabel || '',
+    url: doc.url || '',
+    imageUrl: doc.imageUrl,
+    originalImageUrl: doc.originalImageUrl || doc.imageUrl,
+    author: doc.author || 'BusinessBulletin Desk',
+    pubDate: doc.pubDate ? new Date(doc.pubDate).toISOString() : new Date().toISOString(),
+    readTime: doc.readTime || '3 min read',
+    metaTitle: doc.metaTitle || '',
+    metaDescription: doc.metaDescription || '',
+    metaKeywords: doc.metaKeywords || '',
+    canonicalUrl: doc.canonicalUrl || '',
+    schemaMarkup: doc.schemaMarkup || '',
+  };
+}
+
+/**
+ * Live sync with Admin Panel:
+ * Reads from BB-admin API (port 3002).
+ * When you edit any of the 8 articles per section in admin,
+ * the edit will display on the website immediately!
+ */
+export async function getAllArticles(): Promise<Article[]> {
+  try {
+    const res = await fetch('http://localhost:3002/api/news?limit=0', {
+      cache: 'no-store',
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.news) && data.news.length > 0) {
+        return data.news.map(transformDocToArticle);
+      }
+    }
+  } catch {
+    // If admin is offline, use exact local 8 articles per section
   }
-  return articles.filter((a) => a.category.toLowerCase() === category.toLowerCase());
+  return staticArticles;
 }
 
-export function getArticleById(id: string): Article | undefined {
-  return articles.find((a) => a.id === id);
+export async function getArticlesByCategory(category: string): Promise<Article[]> {
+  const all = await getAllArticles();
+  if (category === 'all' || category === 'home') {
+    return all;
+  }
+  return all.filter((a) => a.category.toLowerCase() === category.toLowerCase());
 }
 
-export function getTrendingArticles(limit: number = 6): Article[] {
-  return articles.slice(0, limit);
+export async function getArticleById(id: string): Promise<Article | undefined> {
+  const all = await getAllArticles();
+  const found = all.find((a) => a.id === id);
+  if (found) return found;
+  return staticArticles.find((a) => a.id === id);
 }
+
+export async function getTrendingArticles(limit: number = 6): Promise<Article[]> {
+  const all = await getAllArticles();
+  return all.slice(0, limit);
+}
+
+export const articles: Article[] = staticArticles;

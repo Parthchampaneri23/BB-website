@@ -23,12 +23,15 @@ export async function generateStaticParams() {
   ];
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function CategoryPage({ params }: PageProps) {
   const { slug } = await params;
   const categoryData = CATEGORIES.find((c) => c.id === slug);
 
-  const categoryArticles = getArticlesByCategory(slug);
-  const trendingArticles = articles.slice(0, 6);
+  const categoryArticles = await getArticlesByCategory(slug);
+  const allArticles = await getArticlesByCategory('all');
+  const trendingArticles = allArticles.slice(0, 6);
 
   const title = categoryData ? categoryData.name : slug.replace('-', ' ').toUpperCase();
 

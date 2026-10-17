@@ -1,5 +1,4 @@
-import React from 'react';
-import { getArticleById, articles } from '@/lib/newsService';
+import { getArticleById, getAllArticles } from '@/lib/newsService';
 import ArticleCard from '@/components/ArticleCard';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -11,21 +10,18 @@ interface PageProps {
   }>;
 }
 
-export async function generateStaticParams() {
-  return articles.slice(0, 30).map((a) => ({
-    id: a.id,
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 export default async function ArticleDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const article = getArticleById(id);
+  const article = await getArticleById(id);
 
   if (!article) {
     notFound();
   }
 
-  const relatedArticles = articles
+  const allArticles = await getAllArticles();
+  const relatedArticles = allArticles
     .filter((a) => a.category === article.category && a.id !== article.id)
     .slice(0, 4);
 
