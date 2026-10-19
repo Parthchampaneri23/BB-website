@@ -97,12 +97,12 @@ function transformDocToArticle(doc: any): Article {
 
 /**
  * Live sync with Admin Panel:
- * Reads from BB-admin API (port 3001 or fallback port 3002).
+ * Reads from BB-admin API (port 4036).
  * When you edit, publish, or auto-fetch any article in admin,
  * the news will display on the website immediately!
  */
 export async function getAllArticles(): Promise<Article[]> {
-  const adminPorts = [3001, 3002];
+  const adminPorts = [4036, 3001, 3002];
   for (const port of adminPorts) {
     try {
       const res = await fetch(`http://localhost:${port}/api/news?limit=0&status=published`, {
