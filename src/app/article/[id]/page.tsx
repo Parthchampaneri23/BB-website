@@ -2,7 +2,7 @@ import { getArticleById, getAllArticles } from '@/lib/newsService';
 import ArticleCard from '@/components/ArticleCard';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Clock, User, Share2, Bookmark, ArrowLeft, ExternalLink, Hash } from 'lucide-react';
+import { Clock, User, Share2, Bookmark, ArrowLeft, Hash } from 'lucide-react';
 
 interface PageProps {
   params: Promise<{
@@ -179,22 +179,6 @@ export default async function ArticleDetailPage({ params }: PageProps) {
               ))}
             </div>
           </div>
-
-          {/* External Source Link */}
-          {article.url && (
-            <div className="mt-6 pt-4 border-t border-[#dbe7f5] flex items-center justify-between font-sans">
-              <span className="text-xs text-gray-500">Originally reported on BusinessBulletin</span>
-              <a
-                href={article.url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1 text-xs font-bold text-[#0069f7] hover:underline"
-              >
-                <span>Read source report</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          )}
         </div>
 
         {/* Sidebar (4 cols) */}

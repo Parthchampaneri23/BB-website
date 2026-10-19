@@ -20,25 +20,31 @@ export default async function HomePage() {
   const companyStories = articles.filter(a => a.category === 'companies');
   const opinionStories = articles.filter(a => a.category === 'opinion');
 
-  // Top 7 stories for the hero slider
+  // Top 7 stories for the hero slider:
+  // 1. Give highest priority to articles flagged as isFeatured or isTrending from Admin
+  // 2. Then latest top home / latest stories
+  // 3. Then fresh stories across diverse desks
+  const featuredArticles = articles.filter(a => a.isFeatured);
   const top7Stories = [
-    ...(homeStories.slice(0, 3)),
-    ...(marketStories.slice(0, 1)),
-    ...(economyStories.slice(0, 1)),
-    ...(companyStories.slice(0, 1)),
-    ...(sportsStories.slice(0, 1)),
-  ].slice(0, 7);
+    ...featuredArticles,
+    ...homeStories,
+    ...marketStories,
+    ...economyStories,
+    ...companyStories,
+    ...techStories,
+    ...sportsStories,
+  ].filter((story, idx, self) => self.findIndex(s => s.id === story.id) === idx).slice(0, 7);
 
   // Trending section: Exactly ONE news per key section
   const trendingSections = [
-    { label: 'The Smart Investor', article: smartInvestorStories[0] },
-    { label: 'Companies', article: companyStories[0] },
-    { label: 'Opinion', article: opinionStories[0] },
-    { label: 'Market', article: marketStories[0] },
-    { label: 'Economy', article: economyStories[0] },
-    { label: 'Personal Finance (PF)', article: pfStories[0] },
-    { label: 'Technology', article: techStories[0] },
-    { label: 'Sports', article: sportsStories[0] },
+    { label: 'Market', article: marketStories.find(a => a.isTrending) || marketStories[0] },
+    { label: 'The Smart Investor', article: smartInvestorStories.find(a => a.isTrending) || smartInvestorStories[0] },
+    { label: 'Companies', article: companyStories.find(a => a.isTrending) || companyStories[0] },
+    { label: 'Opinion', article: opinionStories.find(a => a.isTrending) || opinionStories[0] },
+    { label: 'Economy', article: economyStories.find(a => a.isTrending) || economyStories[0] },
+    { label: 'Personal Finance (PF)', article: pfStories.find(a => a.isTrending) || pfStories[0] },
+    { label: 'Technology', article: techStories.find(a => a.isTrending) || techStories[0] },
+    { label: 'Sports', article: sportsStories.find(a => a.isTrending) || sportsStories[0] },
   ].filter(item => Boolean(item.article));
 
   return (

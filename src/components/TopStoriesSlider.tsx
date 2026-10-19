@@ -56,19 +56,19 @@ export default function TopStoriesSlider({ stories }: TopStoriesSliderProps) {
     >
       {/* Active Story Card */}
       <article className="group bg-white rounded-xs overflow-hidden flex flex-col flex-1">
-        {/* Main Image Stage */}
-        <div className="relative w-full h-64 sm:h-80 md:h-[370px] bg-gray-900 overflow-hidden rounded-xs">
+        {/* Main Image Stage - Fixed 16:9 aspect ratio */}
+        <div className="relative w-full aspect-video sm:aspect-[16/9] max-h-[420px] bg-slate-900 overflow-hidden rounded-md shadow-xs">
           <Image
             src={currentStory.imageUrl}
             alt={currentStory.title}
             fill
             priority
-            sizes="(max-width: 1024px) 100vw, 750px"
-            className="object-cover group-hover:scale-102 transition duration-500 ease-out"
+            sizes="(max-width: 1024px) 100vw, 850px"
+            className="object-cover object-center group-hover:scale-102 transition duration-500 ease-out"
             unoptimized
           />
           {/* Subtle gradient vignette at bottom */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10 pointer-events-none" />
 
           {/* Category Badge & Slide Counter */}
           <div className="absolute top-3 left-3 flex items-center gap-2 z-10">

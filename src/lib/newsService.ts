@@ -16,6 +16,9 @@ export interface Article {
   author: string;
   pubDate: string;
   readTime: string;
+  isFeatured?: boolean;
+  isTrending?: boolean;
+  status?: string;
   metaTitle?: string;
   metaDescription?: string;
   metaKeywords?: string;
@@ -64,6 +67,9 @@ function transformDocToArticle(doc: any): Article {
     author: doc.author || 'BusinessBulletin Desk',
     pubDate: doc.pubDate ? new Date(doc.pubDate).toISOString() : new Date().toISOString(),
     readTime: doc.readTime || '3 min read',
+    isFeatured: Boolean(doc.isFeatured),
+    isTrending: Boolean(doc.isTrending),
+    status: doc.status || 'published',
     metaTitle: doc.metaTitle || '',
     metaDescription: doc.metaDescription || '',
     metaKeywords: doc.metaKeywords || '',
@@ -74,23 +80,26 @@ function transformDocToArticle(doc: any): Article {
 
 /**
  * Live sync with Admin Panel:
- * Reads from BB-admin API (port 3002).
- * When you edit any of the 8 articles per section in admin,
- * the edit will display on the website immediately!
+ * Reads from BB-admin API (port 3001 or fallback port 3002).
+ * When you edit, publish, or auto-fetch any article in admin,
+ * the news will display on the website immediately!
  */
 export async function getAllArticles(): Promise<Article[]> {
-  try {
-    const res = await fetch('http://localhost:3002/api/news?limit=0', {
-      cache: 'no-store',
-    });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.success && Array.isArray(data.news) && data.news.length > 0) {
-        return data.news.map(transformDocToArticle);
+  const adminPorts = [3001, 3002];
+  for (const port of adminPorts) {
+    try {
+      const res = await fetch(`http://localhost:${port}/api/news?limit=0&status=published`, {
+        cache: 'no-store',
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.news) && data.news.length > 0) {
+          return data.news.map(transformDocToArticle);
+        }
       }
+    } catch {
+      // Continue to next port if unreachable
     }
-  } catch {
-    // If admin is offline, use exact local 8 articles per section
   }
   return staticArticles;
 }

@@ -20,13 +20,13 @@ export default function ArticleCard({ article, variant = 'standard' }: ArticleCa
   if (variant === 'featured') {
     return (
       <article className="group bg-white border border-[#dbe7f5] rounded-xs overflow-hidden hover:shadow-md transition duration-200">
-        <div className="relative w-full h-56 sm:h-72 md:h-80 bg-gray-100 overflow-hidden">
+        <div className="relative w-full aspect-video max-h-[360px] bg-slate-900 overflow-hidden">
           <Image
             src={article.imageUrl}
             alt={article.title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 600px"
-            className="object-cover group-hover:scale-102 transition duration-300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 700px"
+            className="object-cover object-center group-hover:scale-102 transition duration-300"
             unoptimized
           />
           <span className="absolute top-3 left-3 bg-[#0069f7] text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs shadow-xs">
@@ -57,14 +57,14 @@ export default function ArticleCard({ article, variant = 'standard' }: ArticleCa
 
   if (variant === 'horizontal') {
     return (
-      <article className="group flex gap-3 p-3 bg-white border-b border-[#e5effb] hover:bg-[#eaf2ff]/30 transition">
-        <div className="relative w-28 sm:w-32 h-20 sm:h-22 shrink-0 bg-gray-100 rounded-xs overflow-hidden">
+      <article className="group flex gap-3 p-3 bg-white border-b border-[#e5effb] hover:bg-[#eaf2ff]/30 transition items-center">
+        <div className="relative w-28 sm:w-32 aspect-[16/10] shrink-0 bg-slate-900 rounded-xs overflow-hidden">
           <Image
             src={article.imageUrl}
             alt={article.title}
             fill
             sizes="130px"
-            className="object-cover group-hover:scale-105 transition duration-300"
+            className="object-cover object-center group-hover:scale-105 transition duration-300"
             unoptimized
           />
         </div>
@@ -108,13 +108,13 @@ export default function ArticleCard({ article, variant = 'standard' }: ArticleCa
   // Standard vertical card
   return (
     <article className="group bg-white border border-[#dbe7f5] rounded-xs overflow-hidden hover:shadow-xs transition flex flex-col h-full">
-      <div className="relative w-full h-44 bg-gray-100 overflow-hidden">
+      <div className="relative w-full aspect-[16/10] bg-slate-900 overflow-hidden">
         <Image
           src={article.imageUrl}
           alt={article.title}
           fill
           sizes="(max-width: 768px) 100vw, 350px"
-          className="object-cover group-hover:scale-105 transition duration-300"
+          className="object-cover object-center group-hover:scale-105 transition duration-300"
           unoptimized
         />
         <span className="absolute top-2 left-2 bg-[#0069f7] text-white text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-xs shadow-xs">
