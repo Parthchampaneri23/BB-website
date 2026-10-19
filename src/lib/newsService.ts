@@ -18,6 +18,7 @@ export interface Article {
   readTime: string;
   isFeatured?: boolean;
   isTrending?: boolean;
+  isBreaking?: boolean;
   status?: string;
   metaTitle?: string;
   metaDescription?: string;
@@ -35,8 +36,17 @@ export interface MarketItem {
   isPositive: boolean;
 }
 
-// Exactly 8 articles per section from articles.json
-export const staticArticles: Article[] = rawArticles as Article[];
+// Exactly 8 articles per section from articles.json, sanitized from Home / Top Stories
+export const staticArticles: Article[] = (rawArticles as any[]).map((a) => {
+  let categoryLabel = a.categoryLabel || a.category;
+  if (!categoryLabel || categoryLabel.toLowerCase().includes('home') || categoryLabel.toLowerCase().includes('top stories')) {
+    categoryLabel = a.subCategoryLabel || (a.category !== 'home' ? a.category : 'Market');
+  }
+  return {
+    ...a,
+    categoryLabel,
+  };
+}) as Article[];
 export const markets: MarketItem[] = rawMarkets as MarketItem[];
 
 export const CATEGORIES = [
@@ -58,7 +68,13 @@ function transformDocToArticle(doc: any): Article {
     summary: doc.summary,
     fullText: doc.fullText || doc.summary,
     category: doc.category,
-    categoryLabel: doc.categoryLabel || doc.category,
+    categoryLabel: (() => {
+      const raw = doc.categoryLabel || doc.category;
+      if (!raw || raw.toLowerCase().includes('home') || raw.toLowerCase().includes('top stories')) {
+        return (doc.subCategoryLabel || (doc.category !== 'home' ? doc.category : 'Market'));
+      }
+      return raw;
+    })(),
     subCategory: doc.subCategory || '',
     subCategoryLabel: doc.subCategoryLabel || '',
     url: doc.url || '',
@@ -69,6 +85,7 @@ function transformDocToArticle(doc: any): Article {
     readTime: doc.readTime || '3 min read',
     isFeatured: Boolean(doc.isFeatured),
     isTrending: Boolean(doc.isTrending),
+    isBreaking: Boolean(doc.isBreaking),
     status: doc.status || 'published',
     metaTitle: doc.metaTitle || '',
     metaDescription: doc.metaDescription || '',
@@ -119,9 +136,15 @@ export async function getArticleById(id: string): Promise<Article | undefined> {
   return staticArticles.find((a) => a.id === id);
 }
 
-export async function getTrendingArticles(limit: number = 6): Promise<Article[]> {
+export async function getBreakingArticles(limit: number = 8): Promise<Article[]> {
   const all = await getAllArticles();
+  const breaking = all.filter((a) => a.isBreaking);
+  if (breaking.length > 0) {
+    return breaking.slice(0, limit);
+  }
+  // Fallback to trending or latest if no article is explicitly marked breaking
   return all.slice(0, limit);
 }
 
 export const articles: Article[] = staticArticles;
+

@@ -18,13 +18,13 @@ export default function TopStoriesSlider({ stories }: TopStoriesSliderProps) {
   const total = Math.min(stories.length, 7);
   const currentStory = stories[currentIndex];
 
-  // 5-second automatic rotation timer
+  // 8.5-second automatic rotation timer (comfortable reading pace)
   useEffect(() => {
     if (isPaused || total <= 1) return;
 
     timerRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % total);
-    }, 5000);
+    }, 8500);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -73,7 +73,14 @@ export default function TopStoriesSlider({ stories }: TopStoriesSliderProps) {
           {/* Category Badge & Slide Counter */}
           <div className="absolute top-3 left-3 flex items-center gap-2 z-10">
             <span className="bg-[#0069f7] text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-xs shadow-md">
-              {currentStory.categoryLabel || currentStory.category}
+              {(() => {
+                const raw = currentStory.categoryLabel || currentStory.category || 'MARKET';
+                if (raw.toLowerCase().includes('home') || raw.toLowerCase().includes('top stories')) {
+                  // If article has subcategory or specific category, use it, else default to Market
+                  return (currentStory.subCategoryLabel || currentStory.category !== 'home' ? currentStory.category : 'MARKET').toUpperCase();
+                }
+                return raw.toUpperCase();
+              })()}
             </span>
           </div>
 
