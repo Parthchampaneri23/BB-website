@@ -122,17 +122,17 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           {/* Article Main Featured Image */}
           {displayImage && (
             <figure className="mb-6">
-              <div className="w-full overflow-hidden rounded-xs bg-gray-100 border border-[#dbe7f5]">
+              <div className="relative w-full aspect-video sm:aspect-[16/9] max-h-[480px] overflow-hidden rounded-xs bg-slate-900 border border-[#dbe7f5]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={displayImage}
                   alt={article.title}
-                  className="w-full h-auto max-h-[460px] object-cover block"
+                  className="w-full h-full object-cover object-center block"
                   loading="eager"
                 />
               </div>
               <figcaption className="text-[11px] text-gray-500 italic mt-2 text-right font-sans">
-                Photo: BusinessBulletin / PTI / Agency
+                Photo: BusinessBulletin Desk
               </figcaption>
             </figure>
           )}
