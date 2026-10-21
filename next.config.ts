@@ -29,7 +29,15 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'admin.businessbullet.in',
+        hostname: 'admin.businessbulletin.in',
+      },
+      {
+        protocol: 'http',
+        hostname: 'admin.businessbulletin.in',
+      },
+      {
+        protocol: 'https',
+        hostname: 'businessbulletin.in',
       },
       {
         protocol: 'http',
