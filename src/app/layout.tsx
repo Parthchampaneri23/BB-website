@@ -18,6 +18,9 @@ export const metadata: Metadata = {
       { url: '/favicon-192x192.png', sizes: '192x192', type: 'image/png' },
     ],
   },
+  verification: {
+    google: "TCNqqhnJWRJVcw8hbN3GJRqASRDqNbGseQLgH7oQOsI",
+  },
 };
 
 interface RootLayoutProps {
