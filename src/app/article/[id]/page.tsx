@@ -27,13 +27,13 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
   const formattedDate = article.pubDate
     ? new Date(article.pubDate).toLocaleDateString('en-US', {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      })
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
     : 'Recent Update';
 
   const displayImage = article.imageUrl || article.originalImageUrl || '/images/news/cat_home_default.jpg';
@@ -138,28 +138,12 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           )}
 
           {/* Article Content / Body Text */}
-          <div className="space-y-4 text-gray-900 font-serif leading-relaxed text-[16px] sm:text-[17px]">
-            <p className="leading-relaxed">
-              {article.fullText || article.summary}
-            </p>
-
-            <p className="leading-relaxed">
-              According to market analysts and industry trackers, developments in this sector are closely watched across major institutional desks. The latest filings and macroeconomic trends suggest persistent shifts in capital flow and market sentiment across India and globally.
-            </p>
-
-            <div className="bg-[#eaf2ff]/40 border-l-2 border-[#0069f7] p-4 my-6 text-sm not-italic font-sans text-gray-700">
-              <strong className="text-[#01142e] block mb-1">Key Highlights:</strong>
-              <ul className="list-disc list-inside space-y-1">
-                <li>Immediate impact observed across key indexes and sector benchmarks.</li>
-                <li>Regulatory insights and corporate filings highlight forward-looking guidance.</li>
-                <li>Portfolio advisors recommend monitoring upcoming quarterly milestones.</li>
-              </ul>
-            </div>
-
-            <p className="leading-relaxed">
-              As the macroeconomic landscape evolves, stakeholders continue to evaluate the balance between growth drivers and inflation risks. Further updates will be tracked live as fresh data emerges.
-            </p>
-          </div>
+          <div
+            className="article-content"
+            dangerouslySetInnerHTML={{
+              __html: article.fullText || article.summary || '',
+            }}
+          />
 
           {/* Hashtags Section */}
           <div className="mt-8 pt-4 border-t border-[#dbe7f5]">

@@ -63,3 +63,94 @@ body {
 .animate-ticker:hover {
   animation-play-state: paused;
 }
+
+/* Rich text rendered article content */
+.article-content {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #171717;
+  line-height: 1.8;
+  font-size: 1.0625rem;
+  word-break: break-word;
+}
+
+.article-content p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  font-family: inherit;
+  font-weight: 700;
+  color: #01142e;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.article-content h2 {
+  font-size: 1.5rem;
+}
+
+.article-content h3 {
+  font-size: 1.25rem;
+}
+
+.article-content h4 {
+  font-size: 1.125rem;
+}
+
+.article-content ul,
+.article-content ol {
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.article-content ul {
+  list-style-type: disc;
+}
+
+.article-content ol {
+  list-style-type: decimal;
+}
+
+.article-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.article-content a {
+  color: #0069f7;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  word-break: break-all;
+}
+
+.article-content a:hover {
+  color: #0053c7;
+}
+
+.article-content blockquote {
+  border-left: 4px solid #0069f7;
+  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  background-color: rgba(234, 242, 255, 0.4);
+  font-style: italic;
+  color: #374151;
+}
+
+.article-content strong,
+.article-content b {
+  font-weight: 700;
+  color: #01142e;
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin: 1.5rem 0;
+}
