@@ -139,7 +139,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
           {/* Article Content / Body Text */}
           <div
-            className="article-content"
+            className="article-body article-content"
             dangerouslySetInnerHTML={{
               __html: article.fullText || article.summary || '',
             }}

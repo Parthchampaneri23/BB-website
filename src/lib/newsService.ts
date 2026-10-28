@@ -62,8 +62,9 @@ export const CATEGORIES = [
 ];
 
 function transformDocToArticle(doc: any): Article {
+  const articleId = String(doc.slug || doc.id || doc._id || '');
   return {
-    id: doc.slug || doc.id,
+    id: articleId,
     title: doc.title,
     summary: doc.summary,
     fullText: doc.fullText || doc.summary,
